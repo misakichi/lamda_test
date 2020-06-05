@@ -13,6 +13,9 @@ int main()
             int s32_2;
             int64_t s64;
             int8_t s8;
+            int8_t s8_2;
+            int8_t s8_3;
+            int8_t s8_4;
             auto no_capture = []() {
             };
             auto int_ret_no_capture = []() {
@@ -98,7 +101,29 @@ int main()
             };     
             auto ref_int8_int32x2_64_capture = [&]() {
                 return s32+s64+s32_2+s8;
-            };              
+            };          
+
+            auto s_8_32_8_capture = [s8,s32,s8_2]() {
+                return s32+s8+s8_2;
+            };    
+            auto s_8_8_32_capture = [s8,s8_2,s32]() {
+                return s32+s8+s8_2;
+            }; 
+            auto s_8_8_8_8_32_capture = [s8,s8_2,s8_3,s8_4,s32]() {
+                return s32+s8+s8_2+s8_3+s8_4;
+            };    
+            auto all_s_8_32_8_capture = [=]() {
+                return s32+s8+s8_2;
+            };    
+            auto all_s_8_8_32_capture = [=]() {
+                return s32+s8+s8_2;
+            }; 
+            auto all_s_8_8_32_8_8_capture = [=]() {
+                return s8+s8_2+s32+s8_3+s8_4;
+            };                                            
+            auto all_s_8_8_8_8_32_capture = [=]() {
+                return s8+s8_2+s8_3+s8_4+s32;
+            };                
             std::cout << std::setw(30) << "name" << "\t" << std::setw(5) << "lamda\t bind" << std::endl;
 
             TEST(no_capture);
@@ -135,7 +160,15 @@ int main()
             TEST(ref_capture);
             TEST(ref_this_capture);
             TEST(ref_this_only_capture);
-
+            std::cout<<std::endl;
+            TEST(s_8_32_8_capture);
+            TEST(s_8_8_32_capture);
+            TEST(s_8_8_8_8_32_capture);
+            std::cout<<std::endl;
+            TEST(all_s_8_32_8_capture);
+            TEST(all_s_8_8_32_capture);
+            TEST(all_s_8_8_32_8_8_capture);
+            TEST(all_s_8_8_8_8_32_capture);
 
       
         }
